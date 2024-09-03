@@ -8,6 +8,7 @@ body{
 
 img{
   max-width: 100%;
+  border-radius: 5px;
 }
 
 main{
@@ -60,10 +61,19 @@ header nav{
 }
 
 .post .info {
-  margin: 0;
+  margin: 8px 0;
   color: #53544d;
+  font-size: 0.8rem;
+  font-weight: bold;
+  display: flex;
+  gap: 10px;
+}
+
+.post .info .author{
+  color: rgb(0, 119, 128);
 }
 
 .post .summary {
+  margin: 6px 0;
   color: #697565;
 }

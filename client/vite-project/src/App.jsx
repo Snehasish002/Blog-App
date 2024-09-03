@@ -25,7 +25,7 @@ function App() {
         <div className="texts">
           <h2>Full-house battery backup coming later this year</h2>
           <p className="info">
-            <a className="author">Snehasish</a>
+            <a className="author">Snehasish Mohanty</a>
             <time>2024-08-01 16:45</time>
           </p>
           <p className="summary">
@@ -48,7 +48,7 @@ function App() {
         <div className="texts">
           <h2>Full-house battery backup coming later this year</h2>
           <p className="info">
-            <a className="author">Snehasish</a>
+            <a className="author">Snehasish Mohanty</a>
             <time>2024-08-01 16:45</time>
           </p>
           <p className="summary">
