@@ -1,0 +1,69 @@
+body{
+  font-family: "Poppins", system-ui;
+  background: #1E201E;
+  /* padding: 0;
+  margin: 0;
+  box-sizing: border-box; */
+}
+
+img{
+  max-width: 100%;
+}
+
+main{
+  padding: 10px ;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+
+
+header{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  width: 100%;
+  align-items: center;
+}
+
+header a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 400;
+
+}
+
+header .logo{
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: #697565;
+}
+
+header nav{
+  display: flex;
+  gap: 35px;
+}
+
+.post{
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.post .texts h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #ECDFCC;
+
+}
+
+.post .info {
+  margin: 0;
+  color: #53544d;
+}
+
+.post .summary {
+  color: #697565;
+}
