@@ -1,3 +1,10 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
 body{
   font-family: "Poppins", system-ui;
   background: #1E201E;
@@ -20,12 +27,18 @@ main{
 
 
 header{
+  padding: 20px 20px;
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
-  margin-bottom: 50px;
-  width: 100%;
   align-items: center;
+  position: fixed; 
+  top: 0; 
+  z-index: 1; 
+  backdrop-filter: blur(10px); 
+  background: rgba(92, 92, 92, 0.173);
+  width: 100%; 
+  left: 0; 
+  right: 0; 
 }
 
 header a {
@@ -38,7 +51,12 @@ header a {
 header .logo{
   font-weight: 500;
   font-size: 1.5rem;
-  color: #697565;
+  color: white;
+}
+
+.logo-side-mark{
+  color: rgb(203, 0, 203);
+  
 }
 
 header nav{
@@ -51,6 +69,7 @@ header nav{
   grid-template-columns: 0.9fr 1.1fr;
   gap: 20px;
   margin-bottom: 30px;
+  margin: 15vh auto;
 }
 
 .post .texts h2 {
@@ -74,6 +93,51 @@ header nav{
 }
 
 .post .summary {
-  margin: 6px 0;
+  margin: 10px 0;
   color: #697565;
+  line-height: 1.3rem;
+}
+
+
+.login, .Register{
+  margin: 15vh auto;
+  max-width: 400px;
+
+}
+
+input {
+  color: white;
+  display: block;
+  margin-bottom: 5px;
+  width: 100%;
+  padding: 7px 10px;
+  border-radius: 5px;
+  background-color: #1a363673;
+  border: 1px solid #697565;
+  outline: none;
+}
+
+input::placeholder{
+  color: rgba(255, 255, 255, 0.514);
+}
+
+button {
+  width: 100%;
+  display: block;
+  background: #40534C;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover{
+  background: #35433d;
+}
+
+form h1{
+  color: #D6BD98;
+  margin-bottom: 25px;
 }
