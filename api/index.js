@@ -3,10 +3,11 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import User from './models/User.js'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 const app = express();
 
-const salt = 'hgdhghdghdjk';
+const salt = bcrypt.genSaltSync(10);;
 
 app.use(cors());
 app.use(express.json());
@@ -22,12 +23,26 @@ app.post('/register', async (req,res) => {
         });
         res.json(userDoc);
     } catch (error) {
+
+        console.log(error)
         res.json(400).json(error)
        
     }
     
     
 });
+
+app.post('/login', async (req,res) => {
+    const {username,password} = req.body;
+    const userDoc = await User.findOne({username});
+    const passOk = bcrypt.compareSync(password,userDoc.password)
+    if(passOk) {
+        //Logged in
+
+    }else{
+        res.status(400).json('Wrong credentials')
+    }
+})
 
 app.listen(3000);
 
