@@ -7,15 +7,16 @@ import jwt from 'jsonwebtoken'
 
 const app = express();
 
-const salt = bcrypt.genSaltSync(10);;
+const salt = bcrypt.genSaltSync(10);
+const secret = "asdfe45we45w345wegw345werjktjwertkj";
 
-app.use(cors());
+app.use(cors({credentials:true,origin:'http://localhost:5173'}));
 app.use(express.json());
 
 mongoose.connect("mongodb+srv://snehasishmohanty9439:Snehasish002@cluster0.oregp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 
-app.post('/register', async (req,res) => {
-    const {username,password} =  req.body;
+app.post('/register', async (req, res) => {
+    const { username, password } = req.body;
     try {
         const userDoc = await User.create({
             username,
@@ -26,22 +27,25 @@ app.post('/register', async (req,res) => {
 
         console.log(error)
         res.json(400).json(error)
-       
+
     }
-    
-    
+
+
 });
 
 app.post('/login', async (req,res) => {
-    const {username,password} = req.body;
+    const {username, password } = req.body;
     const userDoc = await User.findOne({username});
-    const passOk = bcrypt.compareSync(password,userDoc.password)
-    if(passOk) {
+   const passOk = bcrypt.compareSync(password, userDoc.password)
+   if(passOk){
         //Logged in
-
-    }else{
-        res.status(400).json('Wrong credentials')
-    }
+        jwt.sign({username, id:userDoc._id}, secret, {}, (err,token) => {
+            if (err) throw err;
+            res.cookie('token', token).json('ok');
+        });
+   }else{
+        res.status(400).json('Wrong Credentials');
+   }
 })
 
 app.listen(3000);
