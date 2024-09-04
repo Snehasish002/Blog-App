@@ -1,9 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import User from './models/User.js'
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
+import User from './models/User.js';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
@@ -12,6 +13,7 @@ const secret = "asdfe45we45w345wegw345werjktjwertkj";
 
 app.use(cors({credentials:true,origin:'http://localhost:5173'}));
 app.use(express.json());
+app.use(cookieParser());
 
 mongoose.connect("mongodb+srv://snehasishmohanty9439:Snehasish002@cluster0.oregp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 
@@ -46,6 +48,15 @@ app.post('/login', async (req,res) => {
    }else{
         res.status(400).json('Wrong Credentials');
    }
+})
+
+app.get('/profile', (req,res) => {
+
+    const {token} = req.cookies;
+    jwt.verify(token, secret, {}, (err, info) => {
+        if (err) throw err;
+        res.json(info)
+    })
 })
 
 app.listen(3000);
