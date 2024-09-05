@@ -4,20 +4,41 @@ import { UserContext } from "./UserContext";
 
 const Header = () => {
   const {setUserInfo, userInfo} = useContext(UserContext);
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/profile", {
+  //     credentials: "include",
+  //   }).then((response) => {
+  //     response.json().then((userInfo) => {
+  //       setUserInfo(userInfo);
+  //     });
+  //   });
+  // }, []);
+
   useEffect(() => {
     fetch("http://localhost:3000/profile", {
       credentials: "include",
-    }).then((response) => {
-      response.json().then((userInfo) => {
-        setUserInfo(userInfo);
-      });
+    })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Failed to fetch profile");
+      }
+    })
+    .then((userInfo) => {
+      setUserInfo(userInfo);
+    })
+    .catch((err) => {
+      console.error("Error fetching profile:", err);
+      setUserInfo(null); // Clear user info on error
     });
   }, []);
+  
 
   function logout() {
-    fetch('http://localhost:3000/logout', {
-      credentials:'include',
-      method:'POST'
+    fetch("http://localhost:3000/logout", {
+      credentials:"include",
+      method:"POST"
     });
 
     setUserInfo(null);

@@ -28,38 +28,78 @@ app.post('/register', async (req, res) => {
     } catch (error) {
 
         console.log(error)
-        res.json(400).json(error)
+        res.status(400).json(error);
+
 
     }
 
 
 });
 
-app.post('/login', async (req,res) => {
-    const {username, password } = req.body;
-    const userDoc = await User.findOne({username});
-   const passOk = bcrypt.compareSync(password, userDoc.password)
-   if(passOk){
-        //Logged in
-        jwt.sign({username, id:userDoc._id}, secret, {}, (err,token) => {
-            if (err) throw err;
-            res.cookie('token', token).json({
-                id:userDoc._id,
-                username
+// app.post('/login', async (req,res) => {
+//     const {username, password } = req.body;
+//     const userDoc = await User.findOne({username});
+//    const passOk = bcrypt.compareSync(password, userDoc.password)
+//    if(passOk){
+//         //Logged in
+//         jwt.sign({username, id:userDoc._id}, secret, {}, (err,token) => {
+//             if (err) throw err;
+//             res.cookie('token', token).json({
+//                 id:userDoc._id,
+//                 username
+//             });
+//         });
+//    }else{
+//         res.status(400).json('Wrong Credentials');
+//    }
+// })
+
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const userDoc = await User.findOne({ username });
+        if (!userDoc) {
+            return res.status(400).json('Wrong Credentials');
+        }
+
+        const passOk = bcrypt.compareSync(password, userDoc.password);
+        if (passOk) {
+            // Logged in successfully
+            jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
+                if (err) {
+                    return res.status(500).json({ error: 'JWT signing failed' });
+                }
+                res.cookie('token', token).json({
+                    id: userDoc._id,
+                    username
+                });
             });
-        });
-   }else{
-        res.status(400).json('Wrong Credentials');
-   }
-})
+        } else {
+            res.status(400).json('Wrong Credentials');
+        }
+    } catch (err) {
+        console.error(err); // Log the error to the server console
+        res.status(500).json({ error: 'Login failed' });
+    }
+});
+
 
 app.get('/profile', (req,res) => {
 
-    const {token} = req.cookies;
+    const { token } = req.cookies;
+
+    if (!token) {
+        // If no token is provided, return a 401 (Unauthorized) response
+        return res.status(401).json({ error: "No token provided" });
+    }
+
     jwt.verify(token, secret, {}, (err, info) => {
-        if (err) throw err;
-        res.json(info)
-    })
+        if (err) {
+            // Return a 403 (Forbidden) response if the token is invalid
+            return res.status(403).json({ error: "Invalid token" });
+        }
+        res.json(info); // If the token is valid, send back the user info
+    });
 })
 
 app.post('/logout', (req, res) => {
