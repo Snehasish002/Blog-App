@@ -141,3 +141,20 @@ form h1{
   color: #D6BD98;
   margin-bottom: 25px;
 }
+
+.create-post {
+  background: rgb(203, 0, 203);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: 400;
+}
+
+.logout {
+  background: rgb(203, 0, 0);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: 400;
+  cursor: pointer;
+}
