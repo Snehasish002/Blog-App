@@ -10,12 +10,12 @@ import fs from 'fs';
 import Post from './models/Post.js';
 
 const app = express();
-const uploadMiddleWare = multer({dest: 'uploads/'});
+const uploadMiddleWare = multer({ dest: 'uploads/' });
 
 const salt = bcrypt.genSaltSync(10);
 const secret = "asdfe45we45w345wegw345werjktjwertkj";
 
-app.use(cors({credentials:true,origin:'http://localhost:5173'}));
+app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -88,7 +88,7 @@ app.post('/login', async (req, res) => {
 });
 
 
-app.get('/profile', (req,res) => {
+app.get('/profile', (req, res) => {
 
     const { token } = req.cookies;
 
@@ -112,28 +112,42 @@ app.post('/logout', (req, res) => {
 
 app.post("/post", uploadMiddleWare.single('file'), async (req, res) => {
 
-    const {originalname, path} = req.file;
+    const { originalname, path } = req.file;
     const parts = originalname.split('.');
     const ext = parts[parts.length - 1];
-    const newPath = path+'.'+ext;
+    const newPath = path + '.' + ext;
     fs.renameSync(path, newPath);
 
-    const {title, summary, content} = req.body;
+    const { token } = req.cookies;
 
-    const postDoc = await Post.create({
-        title,
-        summary,
-        content,
-        cover: newPath,
-    })
+    jwt.verify(token, secret, {}, async (err, info) => {
+        if (err) {
+            // Return a 403 (Forbidden) response if the token is invalid
+            return res.status(403).json({ error: "Invalid token" });
+        }
+        const { title, summary, content } = req.body;
+        const postDoc = await Post.create({
+            title,
+            summary,
+            content,
+            cover: newPath,
+            author: info.id
+        })
+        res.json(postDoc);
 
-    res.json(postDoc);
+    });
+
 });
 
-app.get('/post', async (req,res) => {
-   
-    res.json(await Post.find());
-})
+app.get('/post', async (req, res) => {
+
+    res.json(
+        await Post.find()
+        .populate('author', ['username'])
+        .sort({createdAt: -1})
+        .limit(20)
+    )
+})  
 
 app.listen(3000);
 

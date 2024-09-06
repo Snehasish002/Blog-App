@@ -2,16 +2,17 @@ import mongoose, { model } from "mongoose";
 import { Schema } from "mongoose";
 
 
-const PostSchma = new Schema({
+const PostSchema = new Schema({
     title: String,
     summary: String,
     content: String,
-    cover: String
+    cover: String,
+    author: {type: Schema.Types.ObjectId, ref:'User'}
 },{
     timestamps: true,
 
 })
 
-const PostModel = model('Post',PostSchma);
+const PostModel = model('Post',PostSchema);
 
 export default PostModel;
