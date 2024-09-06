@@ -8,6 +8,8 @@ import cookieParser from 'cookie-parser';
 import multer from 'multer';
 import fs from 'fs';
 import Post from './models/Post.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const app = express();
 const uploadMiddleWare = multer({ dest: 'uploads/' });
@@ -15,9 +17,13 @@ const uploadMiddleWare = multer({ dest: 'uploads/' });
 const salt = bcrypt.genSaltSync(10);
 const secret = "asdfe45we45w345wegw345werjktjwertkj";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 app.use(express.json());
 app.use(cookieParser());
+app.use('/uploads',  express.static(__dirname + '/uploads'));
 
 mongoose.connect("mongodb+srv://snehasishmohanty9439:Snehasish002@cluster0.oregp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 
