@@ -5,8 +5,10 @@ import User from './models/User.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
+import multer from 'multer';
 
 const app = express();
+const uploadMiddleWare = multer();
 
 const salt = bcrypt.genSaltSync(10);
 const secret = "asdfe45we45w345wegw345werjktjwertkj";
@@ -100,11 +102,15 @@ app.get('/profile', (req,res) => {
         }
         res.json(info); // If the token is valid, send back the user info
     });
-})
+});
 
 app.post('/logout', (req, res) => {
     res.cookie('token', '').json('ok')
-})
+});
+
+app.post("/post", uploadMiddleWare.single('file'),(req, res) => {
+
+});
 
 app.listen(3000);
 
