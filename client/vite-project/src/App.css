@@ -127,7 +127,7 @@ input::placeholder{
   color: rgba(255, 255, 255, 0.514);
 }
 
-button {
+.login button, .Register button {
   width: 100%;
   display: block;
   background: #40534C;
@@ -139,7 +139,7 @@ button {
   font-size: 14px;
 }
 
-button:hover{
+.login button:hover, .Register button:hover{
   background: #35433d;
 }
 
@@ -236,6 +236,17 @@ form.login h1, form.Register h1{
 }
 
 
+.see-post{
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #40534C;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+  margin-top: 5vh;
+}
+
 /* For smaller devices */
 @media (max-width: 768px) {
   /* header {
@@ -245,6 +256,19 @@ form.login h1, form.Register h1{
     gap: 10px;
   }
  */
+
+ .see-post {
+  width: 100%;
+  display: block;
+  background: #40534C;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 0;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 4vh;
+}
 
  header nav{
   

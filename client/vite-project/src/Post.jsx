@@ -20,6 +20,9 @@ const Post = ({ _id, title, summary, cover, content, createdAt, author }) => {
           <time>{format(new Date(createdAt), "MMM d, yyyy hh:mm aaa")}</time>
         </p>
         <p className="summary">{summary}</p>
+        <Link to={`/post/${_id}`}>
+          <button className="see-post">See post</button>
+        </Link>
       </div>
     </div>
   );
