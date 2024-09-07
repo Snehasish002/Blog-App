@@ -63,22 +63,14 @@
     .footer-content {
       gap: 16px;
     }
+    
+
+    
+
+    
+
+   
   
-    .footer-title {
-      font-size: 1.5rem; /* Equivalent to text-2xl */
-    }
   
-    .footer-bracket {
-      font-size: 1.5rem; /* Equivalent to text-2xl */
-    }
-  
-    .footer-icons {
-      gap: 24px;
-      font-size: 2rem; /* Equivalent to text-4xl */
-    }
-  
-    .footer-copy {
-      font-size: 0.875rem; /* Equivalent to text-sm */
-    }
   }
   
