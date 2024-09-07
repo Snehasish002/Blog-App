@@ -20,7 +20,7 @@ img{
 
 main{
   padding: 10px ;
-  max-width: 700px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -233,4 +233,112 @@ form.login h1, form.Register h1{
   margin-top: 20px;
   color: rgb(230, 230, 230);
   font-weight: 200;
+}
+
+
+/* For smaller devices */
+@media (max-width: 768px) {
+  /* header {
+    padding: 10px 15px;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+ */
+
+ header nav{
+  
+    gap: 10px;
+  }
+
+  header .logo {
+    font-size: 1.2rem;
+  }
+
+  main {
+    padding: 30px;
+  }
+
+  
+
+  .logout{
+    font-size: 0.7rem;
+  }
+
+  .create-post {
+    padding: 8px 12px;
+    font-size: 0.6rem;
+    border-radius: 4px;
+    
+  }
+
+  .post {
+    grid-template-columns: 1fr;
+    margin: 10vh auto;
+  }
+
+  .post .texts h2 {
+    font-size: 1.3rem;
+  }
+
+  .post .info {
+    font-size: 0.7rem;
+  }
+
+  .login, .Register {
+    margin: 10vh auto;
+    max-width: 300px;
+  }
+
+  .Post-Page {
+    margin: 10vh auto;
+  }
+
+  .Post-Page .image {
+    max-height: 200px;
+  }
+
+  .Post-Page h1 {
+    font-size: 1.5rem;
+  }
+
+  .Post-Page .author span {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* header .logo {
+    font-size: 1rem;
+  }
+
+  header nav {
+    flex-direction: column;
+    gap: 10px;
+  } */
+
+  
+ 
+
+  .create-post {
+    padding: 6px 10px;
+    font-size: 0.6rem;
+    border-radius: 3px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    
+  }
+
+  .post .texts h2 {
+    font-size: 1.1rem;
+  }
+
+  .Post-Page .image {
+    max-height: 150px;
+  }
+
+  .Post-Page h1 {
+    font-size: 1.2rem;
+  }
 }
