@@ -177,3 +177,11 @@ form.login h1, form.Register h1{
   color: #D6BD98;
   
 }
+
+.Post-Page {
+  margin: 18vh auto;
+}
+
+.Post-Page .image {
+  max-height: 300px;
+}
