@@ -183,5 +183,54 @@ form.login h1, form.Register h1{
 }
 
 .Post-Page .image {
-  max-height: 300px;
+  max-height: 250px;
+  display: flex;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.Post-Page .image img {
+  object-fit: cover;
+  object-position: center center;
+  
+}
+
+.Post-Page a{
+  color: #595959;
+  text-decoration: underline;
+}
+
+.Post-Page h1{
+  color: #D6BD98;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.Post-Page time{
+  text-align: center;
+  display: block;
+  font-size: 0.8rem;
+  color: #53544d;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.Post-Page .author{
+  text-align: center;
+  display: block;
+  color: rgb(179, 179, 179);
+  margin-bottom: 10;
+}
+
+.Post-Page .author span{
+  color: rgb(0, 153, 163);
+  font-size: 20px;
+  font-weight: 600;
+
+}
+
+.paragraph {
+  margin-top: 20px;
+  color: rgb(230, 230, 230);
+  font-weight: 200;
 }
