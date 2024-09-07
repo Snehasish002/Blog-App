@@ -1,8 +1,18 @@
 import React from "react";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
-import './Footer.css'; // Import your CSS file
+import './Footer.css'; 
+import { useLocation } from "react-router-dom";
 
 const Footer = () => {
+
+  const location = useLocation(); 
+
+  
+  if (location.pathname === "/login" || location.pathname === "/register" ) {
+    return null;
+  }
+
+
   return (
     <div className="footer-container">
       <div className="footer-content">
