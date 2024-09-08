@@ -12,7 +12,10 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const app = express();
-const uploadMiddleWare = multer({ dest: 'uploads/' });
+const uploadMiddleWare = multer({ 
+    dest: 'uploads/',
+    limits: { fileSize: 10 * 1024 * 1024 }
+});
 
 const salt = bcrypt.genSaltSync(10);
 const secret = "asdfe45we45w345wegw345werjktjwertkj";
@@ -23,7 +26,7 @@ const __dirname = path.dirname(__filename);
 app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 app.use(express.json());
 app.use(cookieParser());
-app.use('/uploads',  express.static(__dirname + '/uploads'));
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 mongoose.connect("mongodb+srv://snehasishmohanty9439:Snehasish002@cluster0.oregp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 
@@ -117,46 +120,96 @@ app.post('/logout', (req, res) => {
 });
 
 app.post("/post", uploadMiddleWare.single('file'), async (req, res) => {
+    try {
+        const { originalname, path } = req.file;
+        const parts = originalname.split('.');
+        const ext = parts[parts.length - 1];
+        const newPath = path + '.' + ext;
+        fs.renameSync(path, newPath);
 
-    const { originalname, path } = req.file;
-    const parts = originalname.split('.');
-    const ext = parts[parts.length - 1];
-    const newPath = path + '.' + ext;
-    fs.renameSync(path, newPath);
+        const { token } = req.cookies;
+        jwt.verify(token, secret, {}, async (err, info) => {
+            if (err) {
+                return res.status(403).json({ error: "Invalid token" });
+            }
+            const { title, summary, content } = req.body;
+            const postDoc = await Post.create({
+                title,
+                summary,
+                content,
+                cover: newPath,
+                author: info.id
+            });
+            res.json(postDoc);
+        });
+    } catch (error) {
+        if (error instanceof multer.MulterError) {
+            // Handle Multer-specific errors
+            res.status(400).json({ error: 'File upload error: ' + error.message });
+        } else {
+            // Handle other errors
+            res.status(500).json({ error: 'An error occurred: ' + error.message });
+        }
+    }
+});
 
-    const { token } = req.cookies;
 
+app.put('/post', uploadMiddleWare.single('file'), async (req, res) => {
+    let newPath = null;
+    if (req.file) {
+        const { originalname, path } = req.file;
+        const parts = originalname.split('.');
+        const ext = parts[parts.length - 1];
+        newPath = path + '.' + ext;
+        fs.renameSync(path, newPath);
+    }
+
+    const {token} = req.cookies;
     jwt.verify(token, secret, {}, async (err, info) => {
         if (err) {
             // Return a 403 (Forbidden) response if the token is invalid
             return res.status(403).json({ error: "Invalid token" });
         }
-        const { title, summary, content } = req.body;
-        const postDoc = await Post.create({
-            title,
-            summary,
-            content,
-            cover: newPath,
-            author: info.id
-        })
-        res.json(postDoc);
+
+        const {id, title, summary, content } = req.body;
+        const postDoc = await Post.findById(id);
+        const isAuthor = JSON.stringify(postDoc.author === JSON.stringify(info.id));
+
+        if(!isAuthor){
+
+            return res.status(400).json('You are not the author')
+           
+        };
+
+        const updatedPost = await Post.findByIdAndUpdate(
+            id,
+            {
+                title,
+                summary,
+                content,
+                cover: newPath ? newPath : postDoc.cover,
+            },
+            { new: true } // This option returns the updated document
+        );
+
+        res.json(updatedPost);
 
     });
 
-});
+})
 
 app.get('/post', async (req, res) => {
 
     res.json(
         await Post.find()
-        .populate('author', ['username'])
-        .sort({createdAt: -1})
-        .limit(20)
+            .populate('author', ['username'])
+            .sort({ createdAt: -1 })
+            .limit(20)
     )
 });
 
 app.get('/post/:id', async (req, res) => {
-    const {id} = req.params;
+    const { id } = req.params;
     const postDoc = await Post.findById(id).populate('author', ['username'])
     res.json(postDoc)
 })
