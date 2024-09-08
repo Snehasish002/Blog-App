@@ -3,6 +3,7 @@ import "../App.css";
 import { useParams } from "react-router-dom";
 import { format } from "date-fns";
 import {UserContext} from "../UserContext";
+import { Link } from "react-router-dom";
 
 const PostPage = () => {
   const [postInfo, setPostInfo] = useState(null);
@@ -32,11 +33,11 @@ const PostPage = () => {
       <div className="paragraph" dangerouslySetInnerHTML={{__html:postInfo.content}}/>
       {userInfo.id === postInfo.author._id && (
         <div className="edit-row">
-          <a className="edit-btn" href="">
+          <Link className="edit-btn" to={`/edit/${postInfo._id}`}>
           
             Edit Post
             <i className="fa-solid fa-pen-to-square"></i>
-          </a>
+          </Link>
         </div>
       )}
     </div>
