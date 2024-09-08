@@ -22,6 +22,7 @@ const Editor = ({value, onChange}) => {
           value={value}
           onChange={onChange}
           modules={modules}
+          theme={'snow'}
         />
   )
 }

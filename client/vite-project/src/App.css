@@ -277,6 +277,25 @@ form.login h1, form.Register h1{
   background: #35433d;
 }
 
+.update-post{
+  width: 100%;
+  display: block;
+  background: #40534C;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 0;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-block;
+  align-items: center;
+  text-decoration: none;
+}
+
+.update-post:hover{
+  background: #35433d;
+}
+
 @media (max-width: 768px) {
   /* header {
     padding: 10px 15px;
