@@ -137,6 +137,7 @@ input::placeholder{
   padding: 7px 0;
   cursor: pointer;
   font-size: 14px;
+  display: inline-block;
 }
 
 .login button:hover, .Register button:hover{
@@ -247,7 +248,35 @@ form.login h1, form.Register h1{
   margin-top: 5vh;
 }
 
-/* For smaller devices */
+ .edit-row {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.edit-row a i {
+  margin-left: 10px;
+}
+
+.Post-Page .edit-btn {
+  width: 100%;
+  display: block;
+  background: #40534C;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 0;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-block;
+  align-items: center;
+  text-decoration: none;
+  
+}
+
+.Post-Page .edit-btn:hover{
+  background: #35433d;
+}
+
 @media (max-width: 768px) {
   /* header {
     padding: 10px 15px;
