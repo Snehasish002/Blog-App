@@ -15,7 +15,7 @@ const Header = () => {
   // }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/profile", {
+    fetch("https://blog-app-backend-gujw.onrender.com/profile", {
       credentials: "include",
     })
     .then((response) => {
@@ -36,7 +36,7 @@ const Header = () => {
   
 
   function logout() {
-    fetch("http://localhost:3000/logout", {
+    fetch("https://blog-app-backend-gujw.onrender.com/logout", {
       credentials:"include",
       method:"POST"
     });

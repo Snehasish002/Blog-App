@@ -10,7 +10,7 @@ const PostPage = () => {
   const {userInfo} = useContext(UserContext)
   const { id } = useParams();
   useEffect(() => {
-    fetch(`http://localhost:3000/post/${id}`).then((response) => {
+    fetch(`https://blog-app-backend-gujw.onrender.com/post/${id}`).then((response) => {
       response.json().then((postInfo) => {
         setPostInfo(postInfo);
       });
@@ -28,7 +28,7 @@ const PostPage = () => {
       <time>{format(new Date(postInfo.createdAt), "MMM d, yyyy hh:mm aaa")}</time>
       
       <div className="image">
-        <img src={`http://localhost:3000/${postInfo.cover}`} alt="" />
+        <img src={`https://blog-app-backend-gujw.onrender.com/${postInfo.cover}`} alt="" />
       </div>
       <div className="paragraph" dangerouslySetInnerHTML={{__html:postInfo.content}}/>
       {userInfo.id === postInfo.author._id && (
