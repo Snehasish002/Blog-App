@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ReactQuill from "react-quill";
+
 
 import {Navigate} from 'react-router-dom';
 import Editor from "../Editor";
@@ -21,7 +21,7 @@ const CreatePost = () => {
     data.set("file", files[0]);
     ev.preventDefault();
 
-    const response = await fetch("https://blog-app-backend-gujw.onrender.com/post", {
+    const response = await fetch("http://localhost:3000/post", {
       method: "POST",
       body: data,
       credentials: 'include'

@@ -10,6 +10,9 @@ import fs from 'fs';
 import Post from './models/Post.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const uploadMiddleWare = multer({ 
@@ -18,7 +21,7 @@ const uploadMiddleWare = multer({
 });
 
 const salt = bcrypt.genSaltSync(10);
-const secret = "asdfe45we45w345wegw345werjktjwertkj";
+const secret = process.env.JWT_SECRET ||  "default_secret";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,7 +31,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
-mongoose.connect("mongodb+srv://snehasishmohanty9439:Snehasish002@cluster0.oregp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect(process.env.MONGO_URL)
 
 app.post('/register', async (req, res) => {
     const { username, password } = req.body;
@@ -82,7 +85,7 @@ app.post('/login', async (req, res) => {
                 if (err) {
                     return res.status(500).json({ error: 'JWT signing failed' });
                 }
-                res.cookie('token', token).json({
+                res.cookie('token', token, { httpOnly: true, secure: true }).json({
                     id: userDoc._id,
                     username
                 });
@@ -95,6 +98,7 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ error: 'Login failed' });
     }
 });
+
 
 
 app.get('/profile', (req, res) => {
@@ -116,8 +120,9 @@ app.get('/profile', (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-    res.cookie('token', '').json('ok')
+    res.cookie('token', '', { httpOnly: true, secure: true }).json('ok');
 });
+
 
 app.post("/post", uploadMiddleWare.single('file'), async (req, res) => {
     try {
