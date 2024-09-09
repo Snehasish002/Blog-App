@@ -48,6 +48,8 @@ const LoginPage = () => {
         onChange={ ev => setPassword(ev.target.value)}
       />
       <button>Login</button>
+
+      <p className="do-reg">First do register</p>
     </form>
   );
 };

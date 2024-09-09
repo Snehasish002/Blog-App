@@ -144,6 +144,23 @@ input::placeholder{
   background: #35433d;
 }
 
+.edit-create-post{
+  width: 100%;
+  display: block;
+  background: #40534C;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 0;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.edit-create-post:hover {
+  background: #35433d;
+}
+
 form.login h1, form.Register h1{
   color: #D6BD98;
   margin-bottom: 25px;
@@ -294,6 +311,14 @@ form.login h1, form.Register h1{
 
 .update-post:hover{
   background: #35433d;
+}
+
+.do-reg{
+  color: #697565;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
 }
 
 @media (max-width: 768px) {

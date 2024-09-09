@@ -59,7 +59,7 @@ const CreatePost = () => {
         />
 
         <Editor value={content} onChange={setContent} />
-        <button style={{ marginTop: "10px" }}>Create Post</button>
+        <button className="edit-create-post" style={{ marginTop: "10px" }}>Create Post</button>
       </form>
     </div>
   );
