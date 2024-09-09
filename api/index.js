@@ -15,10 +15,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const uploadMiddleWare = multer({ 
-    dest: 'uploads/',
-    limits: { fileSize: 10 * 1024 * 1024 }
-});
+// const uploadMiddleWare = multer({ 
+//     dest: 'uploads/',
+//     limits: { fileSize: 10 * 1024 * 1024 }
+// });
 
 const salt = bcrypt.genSaltSync(10);
 const secret = process.env.JWT_SECRET ||  "default_secret";
