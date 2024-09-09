@@ -9,7 +9,7 @@ const PostPage = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/post/${id}`).then((response) => {
+    fetch(`https://blog-app-backend-f8mc.onrender.com/post/${id}`).then((response) => {
       if (response.ok) {
         response.json().then((postInfo) => {
           setPostInfo(postInfo);
@@ -34,7 +34,7 @@ const PostPage = () => {
       </div>
       <time>{format(new Date(postInfo.createdAt), "MMM d, yyyy hh:mm aaa")}</time>
       <div className="image">
-        <img src={`http://localhost:3000/${postInfo.cover}`} alt="" />
+        <img src={`https://blog-app-backend-f8mc.onrender.com/${postInfo.cover}`} alt="" />
       </div>
       <div className="paragraph" dangerouslySetInnerHTML={{ __html: postInfo.content }} />
       {userInfo && userInfo.id === postInfo.author._id ? (

@@ -7,7 +7,7 @@ const Header = () => {
   const { setUserInfo, userInfo } = useContext(UserContext);
 
   useEffect(() => {
-    fetch("http://localhost:3000/profile", {
+    fetch("https://blog-app-backend-f8mc.onrender.com/profile", {
       credentials: "include",
     })
     .then((response) => {
@@ -29,7 +29,7 @@ const Header = () => {
   }, [setUserInfo]);
 
   function logout() {
-    fetch("http://localhost:3000/logout", {
+    fetch("https://blog-app-backend-f8mc.onrender.com/logout", {
       credentials: "include",
       method: "POST"
     }).then(() => {
